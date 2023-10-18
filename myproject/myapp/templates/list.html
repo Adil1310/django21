@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Task list</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Task List</h1>
+        <div class="form-container">
+            <ul class="task-list">
+                {% for task in tasks %}
+                <li class="task-item">
+                    <h3>{{ task.title }}</h3>
+                    <p>{{ task.discription }}</p>
+                    <p>Status: {% if task.status %}Completed{% else %}Incomplete{% endif %}</p>
+                    <p>Date: {{ task.date }}</p>
+                </li>
+                {% empty %}
+                <p>No tasks found.</p>
+                {% endfor %}
+            </ul>
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        <button type="submit"><a class="btn" href="{% url 'create-task' %}">Create Task</a></button>
+    </div>
+</body>
+
+</html>
